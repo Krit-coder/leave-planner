@@ -1,0 +1,46 @@
+<h3>Team Leave Planner</h3>
+
+<div class="controls">
+  <select [(ngModel)]="month" (change)="onMonthYearChange()">
+    <option *ngFor="let m of months" [value]="m.value">{{ m.label }}</option>
+  </select>
+
+  <select [(ngModel)]="year" (change)="onMonthYearChange()">
+    <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+  </select>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th *ngFor="let day of days">{{ day }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of leaveService.users">
+      <td>{{ user.name }}</td>
+      <td *ngFor="let day of days"
+          [ngClass]="{
+            'planned': getLeaveType(user.id, day) === 'PLANNED',
+            'unplanned': getLeaveType(user.id, day) === 'UNPLANNED'
+          }"
+          (click)="toggleLeave(user.id, getDate(day))">
+        {{ getLeaveType(user.id, day) === 'PLANNED' ? 'P' :
+           getLeaveType(user.id, day) === 'UNPLANNED' ? 'U' : '' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Reason modal -->
+<!-- <div class="modal" *ngIf="showReasonModal">
+  <div class="modal-content">
+    <h4>Reason for Leave</h4>
+    <textarea [(ngModel)]="reasonText" placeholder="Optional reason"></textarea>
+    <div class="modal-actions">
+      <button (click)="saveLeave()">Save</button>
+      <button (click)="cancelReason()">Cancel</button>
+    </div>
+  </div>
+</div> -->
