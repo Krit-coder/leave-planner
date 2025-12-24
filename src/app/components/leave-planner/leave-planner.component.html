@@ -1,46 +1,41 @@
-<h3>Team Leave Planner</h3>
+<div class="planner-container">
 
-<div class="controls">
-  <select [(ngModel)]="month" (change)="onMonthYearChange()">
-    <option *ngFor="let m of months" [value]="m.value">{{ m.label }}</option>
-  </select>
+  <!-- HEADER -->
+  <div class="planner-header">
+    <button (click)="changeMonth(-1)">‹</button>
 
-  <select [(ngModel)]="year" (change)="onMonthYearChange()">
-    <option *ngFor="let y of years" [value]="y">{{ y }}</option>
-  </select>
-</div>
+    <h2>
+      {{ currentYear }} -
+      {{ currentMonth + 1 }}
+    </h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>User</th>
-      <th *ngFor="let day of days">{{ day }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let user of leaveService.users">
-      <td>{{ user.name }}</td>
-      <td *ngFor="let day of days"
-          [ngClass]="{
-            'planned': getLeaveType(user.id, day) === 'PLANNED',
-            'unplanned': getLeaveType(user.id, day) === 'UNPLANNED'
-          }"
-          (click)="toggleLeave(user.id, getDate(day))">
-        {{ getLeaveType(user.id, day) === 'PLANNED' ? 'P' :
-           getLeaveType(user.id, day) === 'UNPLANNED' ? 'U' : '' }}
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Reason modal -->
-<!-- <div class="modal" *ngIf="showReasonModal">
-  <div class="modal-content">
-    <h4>Reason for Leave</h4>
-    <textarea [(ngModel)]="reasonText" placeholder="Optional reason"></textarea>
-    <div class="modal-actions">
-      <button (click)="saveLeave()">Save</button>
-      <button (click)="cancelReason()">Cancel</button>
-    </div>
+    <button (click)="changeMonth(1)">›</button>
   </div>
-</div> -->
+
+  <!-- CALENDAR -->
+  <table class="planner-table">
+    <thead>
+      <tr>
+        <th class="name-col">Name</th>
+        <th *ngFor="let d of daysInMonth">
+          {{ d }}
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let u of users">
+        <td class="name-col">
+          {{ u.name }}
+        </td>
+
+        <td *ngFor="let d of daysInMonth"
+            class="day-cell"
+            (click)="toggleLeave(u.id, d)">
+          {{ leavesMap.get(u.id + '_' + getDate(d)) || '' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

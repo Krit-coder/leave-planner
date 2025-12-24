@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { LeavePlannerComponent } from './components/leave-planner/leave-planner.component';
 import { ManagerDashboardComponent } from './components/manager-dashboard/manager-dashboard.component';
 import { AuthService } from './services/auth.service';
-import { HttpClientModule } from '@angular/common/http';
+// import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     // MyLeavesComponent,
     LeavePlannerComponent,
-    HttpClientModule,
+    // HttpClientModule,
     ManagerDashboardComponent
   ],
   templateUrl: './app.component.html'
