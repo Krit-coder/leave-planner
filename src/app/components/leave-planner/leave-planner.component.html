@@ -2,37 +2,81 @@
 
   <!-- HEADER -->
   <div class="planner-header">
-    <button (click)="changeMonth(-1)">‹</button>
 
-    <h2>
-      {{ currentYear }} -
-      {{ currentMonth + 1 }}
-    </h2>
+  <!-- Previous month -->
+  <button class="nav-btn" (click)="changeMonth(-1)">‹</button>
 
-    <button (click)="changeMonth(1)">›</button>
-  </div>
+  <!-- Month selector -->
+  <select
+    class="month-select"
+    [(ngModel)]="currentMonth"
+    (change)="onMonthYearChange()">
+    <option *ngFor="let m of months; let i = index" [value]="i">
+      {{ m }}
+    </option>
+  </select>
+
+  <!-- Year selector -->
+  <select
+    class="year-select"
+    [(ngModel)]="currentYear"
+    (change)="onMonthYearChange()">
+    <option *ngFor="let y of years" [value]="y">
+      {{ y }}
+    </option>
+  </select>
+
+  <!-- Next month -->
+  <button class="nav-btn" (click)="changeMonth(1)">›</button>
+
+</div>
 
   <!-- CALENDAR -->
   <table class="planner-table">
     <thead>
       <tr>
         <th class="name-col">Name</th>
+
+        <!-- Improved date header -->
         <th *ngFor="let d of daysInMonth">
-          {{ d }}
+          <div class="date-header">
+            <div class="day">
+              {{ getDayName(d) }}
+            </div>
+            <div class="date">
+              {{ d }}
+            </div>
+          </div>
         </th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let u of users">
+        <!-- Sticky name column -->
         <td class="name-col">
           {{ u.name }}
         </td>
 
+        <!-- Calendar cells -->
         <td *ngFor="let d of daysInMonth"
             class="day-cell"
             (click)="toggleLeave(u.id, d)">
-          {{ leavesMap.get(u.id + '_' + getDate(d)) || '' }}
+
+          <!-- Planned Leave -->
+          <div
+            class="leave-chip planned"
+            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'P'">
+            Planned
+          </div>
+
+          <!-- Unplanned Leave -->
+          <div
+            class="leave-chip unplanned"
+            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'U'">
+            Unplanned
+          </div>
+
         </td>
       </tr>
     </tbody>

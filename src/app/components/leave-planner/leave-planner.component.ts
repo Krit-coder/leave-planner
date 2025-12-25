@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LeaveApiService } from '../../services/leave-api.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-leave-planner',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,FormsModule],
   templateUrl: './leave-planner.component.html',
   styleUrls: ['./leave-planner.component.scss']
 })
@@ -17,14 +18,29 @@ export class LeavePlannerComponent implements OnInit {
   currentYear!: number;
   daysInMonth: number[] = [];
   leavesMap = new Map<string, string>(); 
+  months = [
+  'January', 'February', 'March', 'April',
+  'May', 'June', 'July', 'August',
+  'September', 'October', 'November', 'December'
+  ];
+  years: number[] = [];
 
   constructor(private api: LeaveApiService) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
   const today = new Date();
-  this.currentMonth = today.getMonth();
+
+  // ✅ Set current month & year by default
+  this.currentMonth = today.getMonth(); // 0-based
   this.currentYear = today.getFullYear();
 
+  // Build year dropdown
+  this.years = [];
+  for (let i = this.currentYear - 2; i <= this.currentYear + 2; i++) {
+    this.years.push(i);
+  }
+
+  // Load calendar & data
   this.generateCalendar();
   this.loadUsers();
   this.loadLeaves();
@@ -91,4 +107,13 @@ export class LeavePlannerComponent implements OnInit {
     });
   });
 }
+getDayName(day: number): string {
+  return new Date(this.currentYear, this.currentMonth, day)
+    .toLocaleDateString('en-US', { weekday: 'short' });
+}
+onMonthYearChange() {
+  this.generateCalendar();
+  this.loadLeaves();
+}
+
 }
