@@ -4,12 +4,17 @@ import { User } from '../models/user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   currentUser: User = {
-    id: 'u1',
+    id: 1,
+    empid: 'EMP001',
     name: 'You',
-    role: 'MEMBER' // change to MANAGER to test
+    role: 'Developer',
+    location: 'Mumbai',
+    module: 'Sales',
+    email: 'you@example.com',
+    manager_access: 0,
   };
 
   isManager() {
-    return this.currentUser.role === 'MANAGER';
+    return this.currentUser.manager_access === 1;
   }
 }

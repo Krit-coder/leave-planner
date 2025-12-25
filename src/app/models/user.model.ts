@@ -1,5 +1,10 @@
 export interface User {
-  id: string;
+  id: number;
+  empid: string;
   name: string;
-  role: 'MEMBER' | 'MANAGER';
+  role: string;
+  location: string;
+  module: string;
+  email: string;
+  manager_access: number;
 }

@@ -161,3 +161,36 @@ thead th.weekend {
   pointer-events: none;
   opacity: 0.7;
 }
+
+.weekend:hover {
+  background-color: #f1f5f9; /* no hover change */
+}
+
+/* Filters bar */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-group label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.filters-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.filters-bar select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+  background: white;
+  min-width: 160px;
+}
+

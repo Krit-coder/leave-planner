@@ -28,6 +28,31 @@
 
     <!-- Next month -->
     <button class="nav-btn" (click)="changeMonth(1)">›</button>
+    <div class="filters-bar">
+      <div class="filter-group">
+        <label>Role</label>
+        <select [(ngModel)]="selectedRole" (change)="applyFilters()">
+          <option value="">All</option>
+          <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Location</label>
+        <select [(ngModel)]="selectedLocation" (change)="applyFilters()">
+          <option value="">All</option>
+          <option *ngFor="let l of locations" [value]="l">{{ l }}</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Sub-team</label>
+        <select [(ngModel)]="selectedModule" (change)="applyFilters()">
+          <option value="">All</option>
+          <option *ngFor="let m of modules" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+    </div>
   </div>
 
   <!-- CALENDAR -->
@@ -47,7 +72,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let u of users">
+      <tr *ngFor="let u of filteredUsers">
         <!-- Sticky name column -->
         <td class="name-col">
           {{ u.name }}
