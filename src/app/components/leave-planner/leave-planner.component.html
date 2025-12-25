@@ -1,35 +1,34 @@
 <div class="planner-container">
-
   <!-- HEADER -->
   <div class="planner-header">
+    <!-- Previous month -->
+    <button class="nav-btn" (click)="changeMonth(-1)">‹</button>
 
-  <!-- Previous month -->
-  <button class="nav-btn" (click)="changeMonth(-1)">‹</button>
+    <!-- Month selector -->
+    <select
+      class="month-select"
+      [(ngModel)]="currentMonth"
+      (change)="onMonthYearChange()"
+    >
+      <option *ngFor="let m of months; let i = index" [value]="i">
+        {{ m }}
+      </option>
+    </select>
 
-  <!-- Month selector -->
-  <select
-    class="month-select"
-    [(ngModel)]="currentMonth"
-    (change)="onMonthYearChange()">
-    <option *ngFor="let m of months; let i = index" [value]="i">
-      {{ m }}
-    </option>
-  </select>
+    <!-- Year selector -->
+    <select
+      class="year-select"
+      [(ngModel)]="currentYear"
+      (change)="onMonthYearChange()"
+    >
+      <option *ngFor="let y of years" [value]="y">
+        {{ y }}
+      </option>
+    </select>
 
-  <!-- Year selector -->
-  <select
-    class="year-select"
-    [(ngModel)]="currentYear"
-    (change)="onMonthYearChange()">
-    <option *ngFor="let y of years" [value]="y">
-      {{ y }}
-    </option>
-  </select>
-
-  <!-- Next month -->
-  <button class="nav-btn" (click)="changeMonth(1)">›</button>
-
-</div>
+    <!-- Next month -->
+    <button class="nav-btn" (click)="changeMonth(1)">›</button>
+  </div>
 
   <!-- CALENDAR -->
   <table class="planner-table">
@@ -38,14 +37,10 @@
         <th class="name-col">Name</th>
 
         <!-- Improved date header -->
-        <th *ngFor="let d of daysInMonth">
+        <th *ngFor="let d of daysInMonth" [class.weekend]="isWeekend(d)">
           <div class="date-header">
-            <div class="day">
-              {{ getDayName(d) }}
-            </div>
-            <div class="date">
-              {{ d }}
-            </div>
+            <div class="day">{{ getDayName(d) }}</div>
+            <div class="date">{{ d }}</div>
           </div>
         </th>
       </tr>
@@ -59,27 +54,30 @@
         </td>
 
         <!-- Calendar cells -->
-        <td *ngFor="let d of daysInMonth"
-            class="day-cell"
-            (click)="toggleLeave(u.id, d)">
-
+        <td
+          *ngFor="let d of daysInMonth"
+          class="day-cell"
+          [class.weekend]="isWeekend(d)"
+          [class.disabled]="isWeekend(d)"
+          (click)="!isWeekend(d) && toggleLeave(u.id, d)"
+        >
           <!-- Planned Leave -->
           <div
             class="leave-chip planned"
-            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'P'">
+            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'P'"
+          >
             Planned
           </div>
 
           <!-- Unplanned Leave -->
           <div
             class="leave-chip unplanned"
-            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'U'">
+            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'U'"
+          >
             Unplanned
           </div>
-
         </td>
       </tr>
     </tbody>
   </table>
-
 </div>

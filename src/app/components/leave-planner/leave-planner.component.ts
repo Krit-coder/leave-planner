@@ -115,5 +115,11 @@ onMonthYearChange() {
   this.generateCalendar();
   this.loadLeaves();
 }
+isWeekend(day: number): boolean {
+  const date = new Date(this.currentYear, this.currentMonth, day);
+  const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
+  return dayOfWeek === 0 || dayOfWeek === 6;
+}
+
 
 }
