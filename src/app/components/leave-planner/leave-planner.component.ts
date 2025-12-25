@@ -27,7 +27,7 @@ export class LeavePlannerComponent implements OnInit {
   roles: string[] = [];
   locations: string[] = [];
   modules: string[] = [];
-
+  loading = true;
   currentMonth!: number;
   currentYear!: number;
   daysInMonth: number[] = [];
@@ -75,13 +75,12 @@ export class LeavePlannerComponent implements OnInit {
 
   /* ---------- USERS ---------- */
   loadUsers() {
+    this.loading = true;
     this.api.getUsers().subscribe((users: any[]) => {
       this.users = users;
       this.filteredUsers = users;
-
-      this.roles = ['ALL', ...Array.from(new Set(users.map(u => u.role)))];
-      this.locations = ['ALL', ...Array.from(new Set(users.map(u => u.location)))];
-      this.modules = ['ALL', ...Array.from(new Set(users.map(u => u.module)))];
+      this.buildFilters(users);
+      this.loadLeaves();
     });
   }
 
@@ -107,6 +106,11 @@ export class LeavePlannerComponent implements OnInit {
 
     this.generateCalendar();
     this.loadLeaves();
+  }
+  buildFilters(users: any[]) {
+    this.roles = ['ALL', ...Array.from(new Set(users.map(u => u.role)))];
+    this.locations = ['ALL', ...Array.from(new Set(users.map(u => u.location)))];
+    this.modules = ['ALL', ...Array.from(new Set(users.map(u => u.module)))];
   }
 
 
@@ -137,6 +141,7 @@ export class LeavePlannerComponent implements OnInit {
         const key = `${l.userId}_${l.leaveDate}`;
         this.leavesMap.set(key, l.type);
       });
+      this.loading = false;
     });
   }
   getDayName(day: number): string {
