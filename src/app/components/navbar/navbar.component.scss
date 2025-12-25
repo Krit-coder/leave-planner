@@ -1,53 +1,73 @@
 .navbar {
-  height: 56px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  align-items: center;
+  padding: 12px 16px;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 
-/* Left section */
 .navbar-left {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
 .app-title {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: #1f2937;
 }
 
-/* Right section */
+/* Menu icon (hidden on desktop) */
+.menu-icon {
+  display: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Nav items */
 .navbar-right {
   display: flex;
   gap: 16px;
 }
 
 .nav-item {
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
   cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 6px;
-}
-
-.nav-item:hover {
-  background: #f3f4f6;
+  font-size: 14px;
+  color: #374151;
 }
 
 .nav-item.active {
-  background: #e0f2fe;
-  color: #0369a1;
+  font-weight: 600;
+  color: #2563eb;
 }
 
-.nav-item.disabled {
-  color: #9ca3af;
-  cursor: not-allowed;
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 768px) {
+
+  .menu-icon {
+    display: block;
+  }
+
+  .navbar-right {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    padding: 8px 0;
+    z-index: 10;
+  }
+
+  .navbar-right.open {
+    display: flex;
+  }
+
+  .nav-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f3f4f6;
+  }
 }

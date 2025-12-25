@@ -1,53 +1,64 @@
 <div class="planner-container">
   <!-- HEADER -->
-  <div class="planner-header">
-    <!-- Previous month -->
-    <button class="nav-btn" (click)="changeMonth(-1)">‹</button>
 
-    <!-- Month selector -->
-    <select
-      class="month-select"
-      [(ngModel)]="currentMonth"
-      (change)="onMonthYearChange()"
-    >
-      <option *ngFor="let m of months; let i = index" [value]="i">
-        {{ m }}
-      </option>
-    </select>
+  <!-- TOP BAR -->
+  <div class="planner-top-bar">
+    <!-- LEFT: Month & Year -->
+    <div class="month-controls">
+      <button class="nav-btn" (click)="changeMonth(-1)">‹</button>
 
-    <!-- Year selector -->
-    <select
-      class="year-select"
-      [(ngModel)]="currentYear"
-      (change)="onMonthYearChange()"
-    >
-      <option *ngFor="let y of years" [value]="y">
-        {{ y }}
-      </option>
-    </select>
+      <select
+        class="month-select"
+        [(ngModel)]="currentMonth"
+        (change)="onMonthYearChange()"
+      >
+        <option *ngFor="let m of months; let i = index" [value]="i">
+          {{ m }}
+        </option>
+      </select>
 
-    <!-- Next month -->
-    <button class="nav-btn" (click)="changeMonth(1)">›</button>
-    <div class="filters-bar">
-      <div class="filter-group">
-        <label>Role</label>
-        <select [(ngModel)]="selectedRole" (change)="applyFilters()">
-          <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
-        </select>
+      <select
+        class="year-select"
+        [(ngModel)]="currentYear"
+        (change)="onMonthYearChange()"
+      >
+        <option *ngFor="let y of years" [value]="y">
+          {{ y }}
+        </option>
+      </select>
+
+      <button class="nav-btn" (click)="changeMonth(1)">›</button>
+    </div>
+
+    <!-- RIGHT: Filters -->
+    <div class="filters-section">
+      <!-- Mobile-only toggle -->
+      <div class="filter-toggle" (click)="showFilters = !showFilters">
+        Filters ▾
       </div>
 
-      <div class="filter-group">
-        <label>Location</label>
-        <select [(ngModel)]="selectedLocation" (change)="applyFilters()">
-          <option *ngFor="let l of locations" [value]="l">{{ l }}</option>
-        </select>
-      </div>
+      <!-- Filters (ALWAYS visible on PC) -->
+      <div class="filters-bar" [class.mobile-hidden]="!showFilters">
+        <div class="filter-group">
+          <label>Role</label>
+          <select [(ngModel)]="selectedRole" (change)="applyFilters()">
+            <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
+          </select>
+        </div>
 
-      <div class="filter-group">
-        <label>Sub-team</label>
-        <select [(ngModel)]="selectedModule" (change)="applyFilters()">
-          <option *ngFor="let m of modules" [value]="m">{{ m }}</option>
-        </select>
+        <div class="filter-group">
+          <label>Location</label>
+          <select [(ngModel)]="selectedLocation" (change)="applyFilters()">
+            <option *ngFor="let l of locations" [value]="l">{{ l }}</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Sub-team</label>
+          <select [(ngModel)]="selectedModule" (change)="applyFilters()">
+            <option *ngFor="let m of modules" [value]="m">{{ m }}</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>

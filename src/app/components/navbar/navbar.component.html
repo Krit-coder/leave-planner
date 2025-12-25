@@ -1,9 +1,10 @@
 <nav class="navbar">
   <div class="navbar-left">
+    <span class="menu-icon" (click)="toggleMenu()">☰</span>
     <span class="app-title">Leave Planner</span>
   </div>
 
-  <div class="navbar-right">
+  <div class="navbar-right" [class.open]="showMenu">
     <span
       class="nav-item"
       [class.active]="activeView === 'dashboard'"
@@ -19,6 +20,7 @@
     >
       Calendar
     </span>
+
     <span
       class="nav-item"
       [class.active]="activeView === 'member-stats'"

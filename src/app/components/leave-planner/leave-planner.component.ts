@@ -31,6 +31,7 @@ export class LeavePlannerComponent implements OnInit {
   currentMonth!: number;
   currentYear!: number;
   daysInMonth: number[] = [];
+  showFilters = false;
   leavesMap = new Map<string, string>();
   months = [
     'January', 'February', 'March', 'April',
@@ -46,7 +47,9 @@ export class LeavePlannerComponent implements OnInit {
     '2025-08-15', // Independence Day
     '2025-10-02', // Gandhi Jayanti
     '2025-10-20', // Diwali (example)
-    '2025-12-25'  // Christmas
+    '2025-12-25',  // Christmas
+    '2026-01-26', // Republic Day
+    '2026-03-04', // Holi
   ];
 
   constructor(private api: LeaveApiService) { }
