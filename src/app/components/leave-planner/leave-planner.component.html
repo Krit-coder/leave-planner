@@ -64,58 +64,60 @@
   </div>
 
   <!-- CALENDAR -->
-  <table class="planner-table">
-    <thead>
-      <tr>
-        <th class="name-col">Name</th>
+  <div class="calendar-scroll">
+    <table class="planner-table">
+      <thead>
+        <tr>
+          <th class="name-col">Name</th>
 
-        <!-- Improved date header -->
-        <th
-          *ngFor="let d of daysInMonth"
-          [class.weekend]="isWeekend(d)"
-          [class.holiday]="isHoliday(d)"
-        >
-          <div class="date-header">
-            <div class="day">{{ getDayName(d) }}</div>
-            <div class="date">{{ d }}</div>
-          </div>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let u of filteredUsers">
-        <!-- Sticky name column -->
-        <td class="name-col">
-          {{ u.name }}
-        </td>
-
-        <!-- Calendar cells -->
-        <td
-          *ngFor="let d of daysInMonth"
-          class="day-cell"
-          [class.weekend]="isWeekend(d)"
-          [class.holiday]="isHoliday(d)"
-          [class.disabled]="isDisabledDay(d)"
-          (click)="!isDisabledDay(d) && toggleLeave(+u.id, d)"
-        >
-          <!-- Planned Leave -->
-          <div
-            class="leave-chip planned"
-            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'P'"
+          <!-- Improved date header -->
+          <th
+            *ngFor="let d of daysInMonth"
+            [class.weekend]="isWeekend(d)"
+            [class.holiday]="isHoliday(d)"
           >
-            Planned
-          </div>
+            <div class="date-header">
+              <div class="day">{{ getDayName(d) }}</div>
+              <div class="date">{{ d }}</div>
+            </div>
+          </th>
+        </tr>
+      </thead>
 
-          <!-- Unplanned Leave -->
-          <div
-            class="leave-chip unplanned"
-            *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'U'"
+      <tbody>
+        <tr *ngFor="let u of filteredUsers">
+          <!-- Sticky name column -->
+          <td class="name-col">
+            {{ u.name }}
+          </td>
+
+          <!-- Calendar cells -->
+          <td
+            *ngFor="let d of daysInMonth"
+            class="day-cell"
+            [class.weekend]="isWeekend(d)"
+            [class.holiday]="isHoliday(d)"
+            [class.disabled]="isDisabledDay(d)"
+            (click)="!isDisabledDay(d) && toggleLeave(+u.id, d)"
           >
-            Unplanned
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+            <!-- Planned Leave -->
+            <div
+              class="leave-chip planned"
+              *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'P'"
+            >
+              Planned
+            </div>
+
+            <!-- Unplanned Leave -->
+            <div
+              class="leave-chip unplanned"
+              *ngIf="leavesMap.get(u.id + '_' + getDate(d)) === 'U'"
+            >
+              Unplanned
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
