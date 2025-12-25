@@ -1,10 +1,7 @@
-<!-- <app-my-leaves></app-my-leaves>
-<hr /> -->
-<app-navbar></app-navbar>
+<app-navbar (viewChange)="currentView = $event"></app-navbar>
+
 <div class="app-content">
-  <app-leave-planner></app-leave-planner>
-</div>
-<hr />
-<div *ngIf="auth.isManager()">
-  <app-manager-dashboard></app-manager-dashboard>
+  <app-dashboard *ngIf="currentView === 'dashboard'"></app-dashboard>
+  <app-leave-planner *ngIf="currentView === 'calendar'"></app-leave-planner>
+  <app-member-stats *ngIf="currentView === 'member-stats'"></app-member-stats>
 </div>

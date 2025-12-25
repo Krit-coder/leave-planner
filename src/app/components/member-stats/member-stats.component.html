@@ -1,0 +1,19 @@
+<div class="member-stats">
+  <h2>Member Leave Summary</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Total Leaves</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let u of users">
+        <td>{{ u.name }}</td>
+        <td>{{ getTotalLeaves(+u.id) }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

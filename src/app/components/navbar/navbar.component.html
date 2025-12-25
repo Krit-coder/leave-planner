@@ -4,8 +4,27 @@
   </div>
 
   <div class="navbar-right">
-    <!-- Future menu items -->
-    <span class="nav-item active">Calendar</span>
-    <span class="nav-item disabled">Reports</span>
+    <span
+      class="nav-item"
+      [class.active]="activeView === 'dashboard'"
+      (click)="switchView('dashboard')"
+    >
+      Dashboard
+    </span>
+
+    <span
+      class="nav-item"
+      [class.active]="activeView === 'calendar'"
+      (click)="switchView('calendar')"
+    >
+      Calendar
+    </span>
+    <span
+      class="nav-item"
+      [class.active]="activeView === 'member-stats'"
+      (click)="switchView('member-stats')"
+    >
+      Member Stats
+    </span>
   </div>
 </nav>

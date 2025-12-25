@@ -194,3 +194,17 @@ thead th.weekend {
   min-width: 160px;
 }
 
+/* Festive / Company holidays */
+.holiday {
+  background-color: #eef2ff; /* soft bluish-grey */
+}
+
+/* Disabled days (weekend + holiday) */
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.7;
+}
+thead th.holiday {
+  background: #e0e7ff;
+}

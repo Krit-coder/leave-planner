@@ -1,11 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  standalone: true,
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
 
+  @Output() viewChange = new EventEmitter<'dashboard' | 'calendar' | 'member-stats'>();
+
+  activeView: 'dashboard' | 'calendar' | 'member-stats' = 'dashboard';
+
+  switchView(view: 'dashboard' | 'calendar' | 'member-stats') {
+    this.activeView = view;
+    this.viewChange.emit(view);
+  }
 }

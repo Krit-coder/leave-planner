@@ -38,6 +38,16 @@ export class LeavePlannerComponent implements OnInit {
     'September', 'October', 'November', 'December'
   ];
   years: number[] = [];
+  // 🎉 Fixed holidays (YYYY-MM-DD)
+  holidays: string[] = [
+    '2025-01-26', // Republic Day
+    '2025-03-29', // Holi
+    '2025-04-14', // Ambedkar Jayanti
+    '2025-08-15', // Independence Day
+    '2025-10-02', // Gandhi Jayanti
+    '2025-10-20', // Diwali (example)
+    '2025-12-25'  // Christmas
+  ];
 
   constructor(private api: LeaveApiService) { }
 
@@ -146,6 +156,11 @@ export class LeavePlannerComponent implements OnInit {
       (this.selectedModule === 'ALL' || u.module === this.selectedModule)
     );
   }
-
-
+  isHoliday(day: number): boolean {
+    const dateStr = this.getDate(day); // already YYYY-MM-DD
+    return this.holidays.includes(dateStr);
+  }
+  isDisabledDay(day: number): boolean {
+    return this.isWeekend(day) || this.isHoliday(day);
+  }
 }

@@ -32,7 +32,6 @@
       <div class="filter-group">
         <label>Role</label>
         <select [(ngModel)]="selectedRole" (change)="applyFilters()">
-          <option value="">All</option>
           <option *ngFor="let r of roles" [value]="r">{{ r }}</option>
         </select>
       </div>
@@ -40,7 +39,6 @@
       <div class="filter-group">
         <label>Location</label>
         <select [(ngModel)]="selectedLocation" (change)="applyFilters()">
-          <option value="">All</option>
           <option *ngFor="let l of locations" [value]="l">{{ l }}</option>
         </select>
       </div>
@@ -48,7 +46,6 @@
       <div class="filter-group">
         <label>Sub-team</label>
         <select [(ngModel)]="selectedModule" (change)="applyFilters()">
-          <option value="">All</option>
           <option *ngFor="let m of modules" [value]="m">{{ m }}</option>
         </select>
       </div>
@@ -62,7 +59,11 @@
         <th class="name-col">Name</th>
 
         <!-- Improved date header -->
-        <th *ngFor="let d of daysInMonth" [class.weekend]="isWeekend(d)">
+        <th
+          *ngFor="let d of daysInMonth"
+          [class.weekend]="isWeekend(d)"
+          [class.holiday]="isHoliday(d)"
+        >
           <div class="date-header">
             <div class="day">{{ getDayName(d) }}</div>
             <div class="date">{{ d }}</div>
@@ -83,8 +84,9 @@
           *ngFor="let d of daysInMonth"
           class="day-cell"
           [class.weekend]="isWeekend(d)"
-          [class.disabled]="isWeekend(d)"
-          (click)="!isWeekend(d) && toggleLeave(u.id, d)"
+          [class.holiday]="isHoliday(d)"
+          [class.disabled]="isDisabledDay(d)"
+          (click)="!isDisabledDay(d) && toggleLeave(+u.id, d)"
         >
           <!-- Planned Leave -->
           <div
