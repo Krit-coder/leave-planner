@@ -1,27 +1,40 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  standalone: true,
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule]
 })
 export class NavbarComponent {
 
-  @Output() viewChange =
-    new EventEmitter<'dashboard' | 'calendar' | 'member-stats'>();
+  showMenu = false;
 
-  activeView: 'dashboard' | 'calendar' | 'member-stats' = 'dashboard';
-
-  showMenu = false; // 👈 mobile menu toggle
-
-  switchView(view: 'dashboard' | 'calendar' | 'member-stats') {
-    this.activeView = view;
-    this.viewChange.emit(view);
-    this.showMenu = false; // 👈 close menu after click (mobile UX)
-  }
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
+  navigate(path: string) {
+    this.showMenu = false;
+    this.router.navigate([path]);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -1,20 +1,46 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../models/user.model';
+import { tap } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
-  currentUser: User = {
-    id: 1,
-    empid: 'EMP001',
-    name: 'You',
-    role: 'Developer',
-    location: 'Mumbai',
-    module: 'Sales',
-    email: 'you@example.com',
-    manager_access: 0,
-  };
 
-  isManager() {
-    return this.currentUser.manager_access === 1;
+  private API = environment.apiUrl + '/auth'; // ✅ ADD THIS
+
+  constructor(private http: HttpClient) { }
+
+  login(email: string, password: string) {
+    return this.http.post<any>(`${this.API}/login`, {
+      email,
+      password
+    }).pipe(
+      tap(res => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('user', JSON.stringify(res));
+      })
+    );
+  }
+
+  logout() {
+    localStorage.clear();
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  isManager(): boolean {
+    return this.getUser().managerAccess === 1;
   }
 }

@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav *ngIf="isLoggedIn()" class="navbar">
   <div class="navbar-left">
     <span class="menu-icon" (click)="toggleMenu()">☰</span>
     <span class="app-title">Leave Planner</span>
@@ -7,26 +7,31 @@
   <div class="navbar-right" [class.open]="showMenu">
     <span
       class="nav-item"
-      [class.active]="activeView === 'dashboard'"
-      (click)="switchView('dashboard')"
+      routerLink="/dashboard"
+      routerLinkActive="active"
+      (click)="navigate('/dashboard')"
     >
       Dashboard
     </span>
 
     <span
       class="nav-item"
-      [class.active]="activeView === 'calendar'"
-      (click)="switchView('calendar')"
+      routerLink="/leave-planner"
+      routerLinkActive="active"
+      (click)="navigate('/leave-planner')"
     >
       Calendar
     </span>
 
     <span
       class="nav-item"
-      [class.active]="activeView === 'member-stats'"
-      (click)="switchView('member-stats')"
+      routerLink="/member-stats"
+      routerLinkActive="active"
+      (click)="navigate('/member-stats')"
     >
       Member Stats
     </span>
+
+    <span class="nav-item logout" (click)="logout()"> Logout </span>
   </div>
 </nav>

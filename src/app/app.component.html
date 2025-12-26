@@ -1,7 +1,2 @@
-<app-navbar (viewChange)="currentView = $event"></app-navbar>
-
-<div class="app-content">
-  <app-dashboard *ngIf="currentView === 'dashboard'"></app-dashboard>
-  <app-leave-planner *ngIf="currentView === 'calendar'"></app-leave-planner>
-  <app-member-stats *ngIf="currentView === 'member-stats'"></app-member-stats>
-</div>
+<app-navbar></app-navbar>
+<router-outlet></router-outlet>
