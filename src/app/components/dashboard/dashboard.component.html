@@ -1,31 +1,33 @@
-<div class="leave-columns">
-  <div class="leave-column">
-    <h3>On Leave Today</h3>
-    <ul>
-      <li *ngFor="let l of todayLeaves">
-        {{ getUserName(l.userId) }} ({{ l.type }})
-      </li>
-      <li *ngIf="todayLeaves.length === 0">No one on leave</li>
-    </ul>
-  </div>
+<div class="dashboard">
+  <div class="leave-columns">
+    <div class="leave-column">
+      <h3>On Leave Today</h3>
+      <ul>
+        <li *ngFor="let l of todayLeaves">
+          {{ getUserName(l.userId) }} ({{ l.type }})
+        </li>
+        <li *ngIf="todayLeaves.length === 0">No one on leave</li>
+      </ul>
+    </div>
 
-  <div class="leave-column">
-    <h3>Next 7 Days</h3>
-    <ul>
-      <li *ngFor="let l of nextWeekLeaves">
-        {{ getUserName(l.userId) }} – {{ l.leaveDate }}
-      </li>
-      <li *ngIf="nextWeekLeaves.length === 0">No upcoming leaves</li>
-    </ul>
-  </div>
+    <div class="leave-column">
+      <h3>Next 7 Days</h3>
+      <ul>
+        <li *ngFor="let l of nextWeekLeaves">
+          {{ getUserName(l.userId) }} – {{ l.leaveDate }}
+        </li>
+        <li *ngIf="nextWeekLeaves.length === 0">No upcoming leaves</li>
+      </ul>
+    </div>
 
-  <div class="leave-column">
-    <h3>Next 30 Days</h3>
-    <ul>
-      <li *ngFor="let l of nextMonthLeaves">
-        {{ getUserName(l.userId) }} – {{ l.leaveDate }}
-      </li>
-      <li *ngIf="nextMonthLeaves.length === 0">No upcoming leaves</li>
-    </ul>
+    <div class="leave-column">
+      <h3>Next 30 Days</h3>
+      <ul>
+        <li *ngFor="let l of nextMonthLeaves">
+          {{ getUserName(l.userId) }} – {{ l.leaveDate }}
+        </li>
+        <li *ngIf="nextMonthLeaves.length === 0">No upcoming leaves</li>
+      </ul>
+    </div>
   </div>
 </div>

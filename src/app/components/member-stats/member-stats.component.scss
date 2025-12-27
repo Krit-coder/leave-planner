@@ -1,23 +1,147 @@
-.member-stats {
-  padding: 16px;
+/* =========================
+   CONTAINER
+   ========================= */
+.stats-container {
+  padding: 20px;
+  background: linear-gradient(180deg, #006eff 0%, #ffffff 100%);
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
+/* =========================
+   TITLE
+   ========================= */
 h2 {
-  margin-bottom: 12px;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #f7faff;
+  margin-bottom: 16px;
 }
 
-table {
-  border-collapse: collapse;
+/* =========================
+   LOADING
+   ========================= */
+.loading {
+  padding: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* =========================
+   TABLE
+   ========================= */
+.stats-table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
 }
 
-th, td {
-  border: 1px solid #e5e7eb;
-  padding: 8px 12px;
-  text-align: left;
+/* =========================
+   HEADER
+   ========================= */
+.stats-table thead {
+  background: linear-gradient(90deg, #ff6505, #ff873d);
 }
 
-thead {
-  background: #f9fafb;
+.stats-table th {
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* =========================
+   BODY
+   ========================= */
+.stats-table td {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #1f2937;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.stats-table tbody tr {
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.stats-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* =========================
+   TOTAL COLUMN
+   ========================= */
+.stats-table td.total {
+  font-weight: 700;
+  color: #2563eb;
+  text-align: center;
+}
+
+/* =========================
+   BADGE-LIKE NUMBERS
+   ========================= */
+.stats-table td:not(:first-child):not(:last-child) {
+  text-align: center;
+}
+
+.stats-table td:not(:first-child):not(:last-child)::before {
+  content: '';
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+.stats-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 900px) {
+
+  .stats-container {
+    padding: 14px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .stats-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .stats-table th,
+  .stats-table td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}
+
+/* =========================
+   MICRO-ANIMATION (POLISH)
+   ========================= */
+.stats-table tbody tr {
+  animation: fadeIn 0.3s ease both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

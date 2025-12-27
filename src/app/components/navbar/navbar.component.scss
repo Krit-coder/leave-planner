@@ -1,48 +1,119 @@
+/* =========================
+   NAVBAR BASE
+   ========================= */
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: #ffffff;
-  border-bottom: 1px solid #e5e7eb;
+
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.973);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-bottom: 1px solid rgba(229, 231, 235, 0.7);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
+/* =========================
+   LEFT SECTION
+   ========================= */
 .navbar-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .app-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #0f172a;
 }
 
-/* Menu icon (hidden on desktop) */
+/* Hamburger */
 .menu-icon {
   display: none;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
+  color: #334155;
+  transition: transform 0.3s ease;
 }
 
-/* Nav items */
+.menu-icon:hover {
+  transform: scale(1.1);
+}
+
+/* =========================
+   NAV ITEMS (DESKTOP)
+   ========================= */
 .navbar-right {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-item {
+  position: relative;
   cursor: pointer;
   font-size: 14px;
-  color: #374151;
+  font-weight: 500;
+  color: #334155;
+  padding: 6px 2px;
+  transition: color 0.25s ease;
 }
 
+/* Hover underline animation */
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-item:hover {
+  color: #2563eb;
+}
+
+.nav-item:hover::after {
+  width: 100%;
+}
+
+/* Active route */
 .nav-item.active {
   font-weight: 600;
   color: #2563eb;
 }
 
-/* ---------------- MOBILE ---------------- */
+.nav-item.active::after {
+  width: 100%;
+}
+
+/* Logout emphasis */
+.nav-item.logout {
+  color: #dc2626;
+}
+
+.nav-item.logout:hover {
+  color: #b91c1c;
+}
+
+.nav-item.logout::after {
+  background: linear-gradient(90deg, #dc2626, #ef4444);
+}
+
+/* =========================
+   MOBILE NAVBAR
+   ========================= */
 @media (max-width: 768px) {
 
   .menu-icon {
@@ -50,24 +121,43 @@
   }
 
   .navbar-right {
-    display: none;
     position: absolute;
-    top: 56px;
+    top: 60px;
     left: 0;
     width: 100%;
+
     flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+
     background: #ffffff;
     border-top: 1px solid #e5e7eb;
-    padding: 8px 0;
-    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+    overflow: hidden;
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
   }
 
   .navbar-right.open {
-    display: flex;
+    transform: scaleY(1);
+    opacity: 1;
   }
 
   .nav-item {
-    padding: 12px 16px;
-    border-bottom: 1px solid #f3f4f6;
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .nav-item::after {
+    display: none;
+  }
+
+  .nav-item.active {
+    background: #eff6ff;
   }
 }
