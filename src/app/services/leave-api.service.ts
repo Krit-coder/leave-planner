@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, tap } from 'rxjs';
 import { User } from '../models/user.model';
 import { environment } from '../../environments/environment';
+import { Leave } from '../models/leave.model';
 
 @Injectable({ providedIn: 'root' })
 export class LeaveApiService {
@@ -20,8 +21,8 @@ export class LeaveApiService {
     );
   }
 
-  saveLeave(payload: { userId: number; date: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/leaves`, payload);
+  saveLeave(data: { userId: number; date: string; type: string | null }) {
+    return this.http.post(`${this.apiUrl}/leaves`, data);
   }
 
   getLeaves(startDate: string, endDate: string): Observable<any[]> {

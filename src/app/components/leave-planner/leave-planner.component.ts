@@ -124,12 +124,38 @@ export class LeavePlannerComponent implements OnInit {
   /* ---------- LEAVE TOGGLE ---------- */
   toggleLeave(userId: number, day: number) {
     const date = this.getDate(day);
+    const key = `${userId}_${date}`;
+    const current = this.leavesMap.get(key);
 
-    this.api.saveLeave({ userId, date }).subscribe({
+    let nextType: string | null;
+
+    switch (current) {
+      case undefined:
+        nextType = 'P';
+        break;
+      case 'P':
+        nextType = 'U';
+        break;
+      case 'U':
+        nextType = '1HF';
+        break;
+      case '1HF':
+        nextType = '2HF';
+        break;
+      default:
+        nextType = null;
+    }
+
+    this.api.saveLeave({
+      userId,
+      date,
+      type: nextType
+    }).subscribe({
       next: () => this.loadLeaves(),
       error: err => console.error(err)
     });
   }
+
 
   loadLeaves() {
     const start = this.getDate(1);
@@ -138,7 +164,8 @@ export class LeavePlannerComponent implements OnInit {
     this.api.getLeaves(start, end).subscribe(res => {
       this.leavesMap.clear();
       res.forEach(l => {
-        const key = `${l.userId}_${l.leaveDate}`;
+        const date = l.leaveDate || l.date; // ✅ SAFETY
+        const key = `${l.userId}_${date}`;
         this.leavesMap.set(key, l.type);
       });
       this.loading = false;
