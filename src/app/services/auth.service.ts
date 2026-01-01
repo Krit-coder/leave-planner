@@ -43,4 +43,25 @@ export class AuthService {
   isManager(): boolean {
     return this.getUser().managerAccess === 1;
   }
+  isGuest(): boolean {
+    return localStorage.getItem('guest') === 'true';
+  }
+  enterGuestMode() {
+    localStorage.setItem('guest', 'true');
+  }
+
+  exitGuestMode() {
+    localStorage.clear();
+  }
+  loginAsGuest() {
+    const guestUser = {
+      name: 'Guest',
+      role: 'VIEW_ONLY',
+      managerAccess: 0,
+      isGuest: true
+    };
+
+    localStorage.setItem('guest', 'true');
+    localStorage.setItem('user', JSON.stringify(guestUser));
+  }
 }

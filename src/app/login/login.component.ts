@@ -29,4 +29,8 @@ export class LoginComponent {
                 error: () => this.error = 'Invalid email or password'
             });
     }
+    viewAsGuest() {
+        this.authService.loginAsGuest();
+        this.router.navigate(['/dashboard']);
+    }
 }

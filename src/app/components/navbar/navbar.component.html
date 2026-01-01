@@ -1,4 +1,4 @@
-<nav *ngIf="isLoggedIn()" class="navbar">
+<nav *ngIf="isLoggedIn() || isGuest()" class="navbar">
   <div class="navbar-left">
     <span class="menu-icon" (click)="toggleMenu()">☰</span>
     <span class="app-title">Leave Planner</span>
@@ -32,6 +32,17 @@
       Member Stats
     </span>
 
-    <span class="nav-item logout" (click)="logout()"> Logout </span>
+    <span class="nav-item logout" *ngIf="isLoggedIn()" (click)="logout()">
+      Logout
+    </span>
+
+    <span
+      class="nav-item login"
+      *ngIf="isGuest() && !isLoggedIn()"
+      routerLink="/login"
+      (click)="exitGuestMode()"
+    >
+      Login
+    </span>
   </div>
 </nav>

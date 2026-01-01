@@ -110,7 +110,10 @@
             [class.weekend]="isWeekend(d)"
             [class.holiday]="isHoliday(d)"
             [class.disabled]="isDisabledDay(d)"
-            (click)="!isDisabledDay(d) && toggleLeave(+u.id, d)"
+            [class.readonly]="isReadOnly()"
+            (click)="
+              !isDisabledDay(d) && !isReadOnly() && toggleLeave(+u.id, d)
+            "
           >
             <!-- Planned -->
             <div

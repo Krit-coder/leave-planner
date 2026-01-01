@@ -35,6 +35,14 @@ export class NavbarComponent {
 
   logout() {
     this.authService.logout();
+    this.authService.exitGuestMode();
+    this.router.navigate(['/login']);
+  }
+  isGuest() {
+    return this.authService.isGuest();
+  }
+  exitGuestMode() {
+    this.authService.exitGuestMode();
     this.router.navigate(['/login']);
   }
 }

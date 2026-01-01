@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LeaveApiService } from '../../services/leave-api.service';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-leave-planner',
@@ -52,7 +53,9 @@ export class LeavePlannerComponent implements OnInit {
     '2026-03-04', // Holi
   ];
 
-  constructor(private api: LeaveApiService) { }
+  constructor(private api: LeaveApiService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     const today = new Date();
@@ -197,5 +200,8 @@ export class LeavePlannerComponent implements OnInit {
   }
   isDisabledDay(day: number): boolean {
     return this.isWeekend(day) || this.isHoliday(day);
+  }
+  isReadOnly(): boolean {
+    return this.authService.isGuest();
   }
 }

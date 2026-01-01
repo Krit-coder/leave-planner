@@ -29,7 +29,8 @@
       <button type="submit" class="login-btn" [disabled]="loginForm.invalid">
         Login
       </button>
-
+      <button class="guest-btn" (click)="viewAsGuest()">View as Guest</button>
+      <p class="hint">Guest users can only view calendar & dashboard</p>
       <p class="error" *ngIf="error">
         {{ error }}
       </p>
