@@ -42,15 +42,22 @@ export class LeavePlannerComponent implements OnInit {
   years: number[] = [];
   // 🎉 Fixed holidays (YYYY-MM-DD)
   holidays: string[] = [
-    '2025-01-26', // Republic Day
-    '2025-03-29', // Holi
-    '2025-04-14', // Ambedkar Jayanti
+    '2025-03-14', // Holi
+    '2025-03-31', // Id
+    '2025-05-01', // May Day
     '2025-08-15', // Independence Day
+    '2025-08-27', // Ganesh Chaturthi
     '2025-10-02', // Gandhi Jayanti
-    '2025-10-20', // Diwali (example)
+    '2025-10-21', // Diwali (example)
     '2025-12-25',  // Christmas
     '2026-01-26', // Republic Day
-    '2026-03-04', // Holi
+    '2026-03-03', // Holi
+    '2026-05-28', // Id
+    '2026-05-01', // May Day
+    '2026-09-14', // Ganesh Chaturthi
+    '2026-10-02', // Gandhi Jayanti
+    '2026-10-20', // Dushhera
+    '2026-12-25',  // Christmas
   ];
 
   constructor(private api: LeaveApiService,
